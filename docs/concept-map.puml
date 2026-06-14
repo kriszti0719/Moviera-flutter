@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 14
+skinparam chaperone false
+hide circle
+
+rectangle "Unauthenticated User" as unauth
+rectangle "Registered User" as reg
+rectangle "Firebase Auth" as auth
+rectangle "4-Screen UI Layout" as ui
+rectangle "Search Screen" as search
+rectangle "Saved Screen (Home)" as saved
+rectangle "Details Screen" as details
+rectangle "TMDB API" as api
+rectangle "Local Database" as db
+
+unauth --> auth : " registers / logs in via "
+auth --> reg : " grants session access to "
+reg --> ui : " interacts with "
+
+ui --> search : " contains "
+ui --> saved : " contains "
+ui --> details : " contains "
+
+search --> api : " fetches real-time data from "
+saved --> db : " loads / persists data via "
+details --> db : " updates 'Seen it' status in "
+
+@enduml

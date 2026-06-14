@@ -1,0 +1,22 @@
+@startmindmap MovieraMindMap
+skinparam monochrome true
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 14
+
+* Moviera Application
+
+** System Actors
+*** Unauthenticated User\n(Restricted to Auth Screens)
+*** Registered User\n(Full 4-Screen Layout Access)
+
+** External Services
+*** Firebase Authentication\n(Session & Access Control)
+*** TMDB REST API\n(Live Movie Metadata Search)
+
+left side
+
+** Internal Services
+*** Local Storage\n(SQLite / SharedPreferences)
+*** State Management\n(Provider / ChangeNotifier)
+
+@endmindmap

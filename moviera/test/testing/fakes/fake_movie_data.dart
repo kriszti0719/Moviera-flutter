@@ -1,0 +1,1 @@
+// Mock JSON objects for testing pipelines

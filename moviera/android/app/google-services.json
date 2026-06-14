@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "56369660725",
+    "project_id": "moviera-flutter",
+    "storage_bucket": "moviera-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56369660725:android:ce79dd9f68236d1ca7827c",
+        "android_client_info": {
+          "package_name": "it.univaq.disim.sam.moviera"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeGdy40YEVyNp8wMDUI05sWlB5Soodvvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

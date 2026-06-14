@@ -1,0 +1,69 @@
+@startuml Moviera_Navigation_Diagram
+
+skinparam backgroundColor #FFFFFF
+skinparam state {
+    StartColor #2D3748
+    EndColor #2D3748
+    BackgroundColor #EDF2F7
+    BorderColor #4A5568
+    FontName Arial
+    FontSize 12
+    AttributeFontColor #2B6CB0
+}
+
+[*] --> AppLaunch : run() [WidgetsFlutterBinding]
+
+state AppLaunch {
+    [*] --> FirebaseInit : Firebase.initializeApp()
+    FirebaseInit --> AuthWrapper : StreamBuilder [onAuthStateChanged]
+}
+
+state AuthWrapper {
+    state "LoginScreen (View)" as Login {
+        state "RegisterScreen (View)" as Register
+        [*] --> InputFields
+        InputFields --> Register : Click "Register here"
+        Register --> InputFields : Click "Register" (Success) / Back
+    }
+
+    state "MainNavigationShell (Home Framework)" as MainShell {
+        state "WatchlistScreen (View)" as Watchlist {
+            [*] --> LoadedWatchlist : loadWatchlist()
+        }
+
+        state "SearchScreen (View)" as Search {
+            [*] --> IdleSearch
+            IdleSearch --> QueryActive : search(title) [TMDB API]
+            QueryActive --> QueryActive : Toggle Bookmark [Save/Remove]
+        }
+
+        state "AboutScreen (Modal Sheet View)" as About
+
+        [*] --> Watchlist : Default Tab (Index 0)
+        
+        Watchlist --> Search : BottomNavigationBar Switch
+        Search --> Watchlist : BottomNavigationBar Switch
+        
+        note top of About
+          Triggered from AppBar
+          via showModalBottomSheet()
+        end note
+    }
+
+    [*] --> Login : snapshot.hasData == false
+    [*] --> MainShell : snapshot.hasData == true
+}
+
+state "MovieDetailsScreen (View)" as DetailsScreen {
+    [*] --> RenderDetails : Passes Movie Object
+    state RenderDetails {
+        [*] --> InteractiveStatusBar
+        InteractiveStatusBar --> InteractiveStatusBar : Tap "Status Bar" [toggleMovieSeen()]
+    }
+}
+
+LoadedWatchlist --> DetailsScreen : Tap Movie Card
+RenderDetails --> Watchlist : Back Nav (Pop Stack)
+MainShell --> Login : Tap Top-Right Logout Icon [logout()]
+
+@enduml
